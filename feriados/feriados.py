@@ -1,5 +1,6 @@
 import requests
 from datetime import date  
+import csv
 
 URL = "https://api.argentinadatos.com/v1/feriados/2026"
 
@@ -24,3 +25,11 @@ if restantes:
 
 else:
     print("No hay feriados restatantes este año")
+
+with open("feriados_restantes.csv", "w", newline="", encoding="utf-8-sig") as archivo:
+    escritor = csv.writer(archivo)
+    escritor.writerow(["fecha", "nombre", "tipo"])
+    for feriado in restantes:
+        escritor.writerow([feriado["fecha"], feriado["nombre"], feriado["tipo"]])
+
+print("CSV guardado: feriados_restantes.csv")
